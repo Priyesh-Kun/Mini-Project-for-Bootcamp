@@ -95,7 +95,7 @@ fn edit_proposal(key: u64, proposal: CreateProposal) -> Result<(), VoteError> {
             None => return Err(VoteError::NoSuchProposals),
         }
         if old_proposal.owner != ic_cdk::caller() {
-            Err(VoteError::AccessRejected);
+            return Err(VoteError::AccessRejected);
         }
 
         let value = Proposal {
@@ -127,7 +127,7 @@ fn end_proposal(key: u64) -> Result<(), VoteError> {
             None => return Err(VoteError::NoSuchProposals),
         }
         if old_proposal.owner != ic_cdk::caller() {
-            Err(VoteError::AccessRejected);
+            return Err(VoteError::AccessRejected);
         }
 
         old_proposal.is_active = false;
